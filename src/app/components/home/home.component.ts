@@ -133,6 +133,7 @@ export class HomeComponent {
     this.startTimer(); // Reinicia o timer
     this.isGameOverBlockBtn = false;
     this.showBtnRestart = false;
+    this.attempts = 20;
   }
 }
 
