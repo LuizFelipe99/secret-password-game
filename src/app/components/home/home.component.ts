@@ -1,14 +1,14 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-home',
-  imports: [NgFor],
+  imports: [NgFor, NgIf],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  numbers = [1,2,3,4,5,6,7,8,9];
+  numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   secret: number[] = [];
   msg: string[] = [];
   result: number[] = [];
@@ -40,6 +40,7 @@ export class HomeComponent {
       this.addMsg('✅ ACERTOU !!!');
       this.result.push(val);
       this.secret.shift();
+      this.verifyEndGame();
       return;
     }
 
@@ -59,4 +60,27 @@ export class HomeComponent {
     }
     this.secret = pool.slice(0, 4);
   }
+
+
+  verifyEndGame() {
+    if (this.result.length == 4) {
+      this.openWinModal();
+
+    }
+  }
+
+
+  //modal
+  showWinModal = false;
+  openWinModal() { this.showWinModal = true; }
+  closeWinModal() { this.showWinModal = false; }
+
+  restartGame() {
+    this.closeWinModal();
+    this.msg = [];
+    this.result = [];
+    this.generateSecret();
+  }
+
+
 }

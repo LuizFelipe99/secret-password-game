@@ -38,3 +38,20 @@
     </section>
   </div>
 </div>
+
+<div class="overlay" *ngIf="showWinModal" (click)="closeWinModal()">
+  <div class="win-modal" (click)="$event.stopPropagation()">
+    <div class="win-badge">🏆</div>
+
+    <h2 class="win-title">Você ganhou!</h2>
+    <p class="win-text">Mandou bem! Você acertou o código.</p>
+    <p> {{result}} </p>
+
+    <div class="win-actions">
+      <button class="btn btn-ghost" (click)="closeWinModal()">Fechar</button>
+      <button class="btn btn-primary" (click)="restartGame()">Jogar de novo</button>
+    </div>
+  </div>
+</div>
+
+
