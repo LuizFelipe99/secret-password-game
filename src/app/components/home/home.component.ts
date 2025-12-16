@@ -12,11 +12,11 @@ export class HomeComponent {
   secret: number[] = [];
   msg: string[] = [];
   result: (number | '*')[] = ['*', '*', '*', '*'];
-  timeLeft: number = 120; // 2 minutos em segundos
+  timeLeft: number = 60; // 1 minuto em segundos
   timer: any;
   showWinModal = false;
-  showBtnRestartGame = true;
-  isGameOver = false;
+  isGameOverBlockBtn = false;
+  showBtnRestart = false;
 
   @ViewChild('logRef') logRef!: ElementRef<HTMLElement>;
 
@@ -43,7 +43,8 @@ export class HomeComponent {
   }
 
   private endGame() {
-    this.isGameOver = true;
+    this.isGameOverBlockBtn = true;
+    this.showBtnRestart = true;
     this.addMsg('⏰ O tempo acabou!');
     this.verifyEndGame();
   }
@@ -99,8 +100,7 @@ export class HomeComponent {
   verifyEndGame() {
     if (!this.result.includes('*')) {
       this.openWinModal();
-      this.showBtnRestartGame = true;
-
+      this.showBtnRestart = true;
     }
   }
 
@@ -110,8 +110,9 @@ export class HomeComponent {
   restartGame() {
     this.closeWinModal();
     this.startGame();
-    this.timeLeft = 120; // Reseta o tempo
+    this.timeLeft = 60; // Reseta o tempo
     this.startTimer(); // Reinicia o timer
-    this.showBtnRestartGame = false; // escondendo botao para inciar o jogo e ele sumir do front
+    this.isGameOverBlockBtn = false;
+    this.showBtnRestart = false;
   }
 }

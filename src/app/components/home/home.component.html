@@ -36,13 +36,13 @@
           class="num-btn"
           *ngFor="let val of numbers"
           (click)="verifyResult(val)"
-          [disabled]="isGameOver" 
+           [disabled]="isGameOverBlockBtn" 
         >
           {{ val }}
         </button>
       </div>
     </section>
-    <div class="btn-restart" *ngIf="showBtnRestartGame" (click)="restartGame()">
+    <div class="btn-restart" (click)="restartGame()" *ngIf="showBtnRestart">
       Jogar de novo
     </div>
   </div>
