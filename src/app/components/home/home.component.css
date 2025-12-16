@@ -303,4 +303,34 @@
   to { transform: translateY(0) scale(1); }
 }
 
+.timer {
+  font-size: 20px;
+  color: #eaf0ff;
+  margin-top: 10px;
+  font-weight: bold;
+  text-align: end;
+}
+
+.btn-restart {
+  border-radius: 10px;
+  border: 1px solid #008CBA; /* Usando uma cor mais próxima da cor do botão */
+  width: 150px; /* Definindo largura fixa */
+  padding: 10px 20px; /* Aumentando o padding para um visual mais espaçado */
+  margin-top: 1rem;
+  background-color: #00B0B9; /* Mudando para um tom mais forte de Aqua */
+  color: white;
+  font-size: 16px; /* Aumentando o tamanho da fonte */
+  font-weight: bold; /* Deixando o texto mais forte */
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s; /* Adicionando uma transição suave */
+}
+
+.btn-restart:hover {
+  background-color: #008CBA; /* Cor do botão ao passar o mouse */
+}
+
+.btn-restart:active {
+  transform: scale(0.98); /* Efeito de clique */
+}
 

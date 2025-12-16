@@ -5,24 +5,47 @@ import { NgFor, NgIf } from '@angular/common';
   selector: 'app-home',
   imports: [NgFor, NgIf],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
   numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   secret: number[] = [];
   msg: string[] = [];
-
-  // agora result começa mascarado e vai revelando
   result: (number | '*')[] = ['*', '*', '*', '*'];
-
-  get resultText(): string {
-  return this.result.join('');
-}
+  timeLeft: number = 120; // 2 minutos em segundos
+  timer: any;
+  showWinModal = false;
+  showBtnRestartGame = true;
+  isGameOver = false;
 
   @ViewChild('logRef') logRef!: ElementRef<HTMLElement>;
 
+  // Variável resultText para exibir a senha
+  get resultText(): string {
+    return this.result.join('');
+  }
+
   ngOnInit(): void {
     this.startGame();
+    this.startTimer(); // Começa o timer ao iniciar o jogo
+  }
+
+  private startTimer() {
+    // Utiliza o método setInterval corretamente para decrementar 1 segundo a cada 1 segundo
+    this.timer = setInterval(() => {
+      if (this.timeLeft > 0) {
+        this.timeLeft--; // Decrementa o tempo restante
+      } else {
+        clearInterval(this.timer); // Para o timer quando o tempo acabar
+        this.endGame(); // Chama a função de término do jogo
+      }
+    }, 1000); // Atualiza a cada 1 segundo
+  }
+
+  private endGame() {
+    this.isGameOver = true;
+    this.addMsg('⏰ O tempo acabou!');
+    this.verifyEndGame();
   }
 
   private startGame() {
@@ -49,14 +72,9 @@ export class HomeComponent {
 
     if (val === current) {
       this.addMsg('✅ ACERTOU !!!');
-
-      // posição que estamos acertando (0..3)
-      // antes do shift: se secret.length=4 -> pos=0; se 3 -> pos=1; etc.
       const pos = 4 - this.secret.length;
-
-      this.result[pos] = val; // revela o número no lugar do '*'
+      this.result[pos] = val;
       this.secret.shift();
-
       this.verifyEndGame();
       return;
     }
@@ -79,19 +97,21 @@ export class HomeComponent {
   }
 
   verifyEndGame() {
-    // terminou quando não existir mais '*'
     if (!this.result.includes('*')) {
       this.openWinModal();
+      this.showBtnRestartGame = true;
+
     }
   }
 
-  // modal
-  showWinModal = false;
   openWinModal() { this.showWinModal = true; }
   closeWinModal() { this.showWinModal = false; }
 
   restartGame() {
     this.closeWinModal();
     this.startGame();
+    this.timeLeft = 120; // Reseta o tempo
+    this.startTimer(); // Reinicia o timer
+    this.showBtnRestartGame = false; // escondendo botao para inciar o jogo e ele sumir do front
   }
 }

@@ -3,12 +3,17 @@
     <header class="header">
       <h1>Descubra a senha</h1>
       <p>Uma senha de <b>4 números</b>. Acerte na ordem!</p>
+      <!-- Exibição do tempo -->
+        <div class="timer">
+          <span>Tempo restante: {{ timeLeft }} segundos</span>
+        </div>
+
     </header>
 
     <section class="top">
       <div class="secret-number">
         <span class="label">Senha</span>
-        <input type="text"   [value]="resultText" class="password" readonly />
+        <input type="text" [value]="resultText" class="password" readonly />
       </div>
 
       <div class="result">
@@ -31,14 +36,20 @@
           class="num-btn"
           *ngFor="let val of numbers"
           (click)="verifyResult(val)"
+          [disabled]="isGameOver" 
         >
           {{ val }}
         </button>
       </div>
     </section>
+    <div class="btn-restart" *ngIf="showBtnRestartGame" (click)="restartGame()">
+      Jogar de novo
+    </div>
   </div>
 </div>
 
+
+<!-- MODAL -->
 <div class="overlay" *ngIf="showWinModal" (click)="closeWinModal()">
   <div class="win-modal" (click)="$event.stopPropagation()">
     <div class="win-badge">🏆</div>
@@ -53,5 +64,3 @@
     </div>
   </div>
 </div>
-
-
