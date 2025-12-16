@@ -12,11 +12,12 @@ export class HomeComponent {
   secret: number[] = [];
   msg: string[] = [];
   result: (number | '*')[] = ['*', '*', '*', '*'];
-  timeLeft: number = 6; // 1 minuto em segundos
+  timeLeft: number = 60; // 1 minuto em segundos
   timer: any;
   showWinModal = false;
   isGameOverBlockBtn = false;
   showBtnRestart = false;
+  attempts = 20;
 
   @ViewChild('logRef') logRef!: ElementRef<HTMLElement>;
 
@@ -77,6 +78,15 @@ export class HomeComponent {
 
   verifyResult(val: number) {
     const current = this.secret[0];
+    this.attempts -= 1;
+    //verifica tentativas
+    if (this.attempts <= 0) {
+      this.addMsg('😞 Acabaram as tentativas ! 😞');
+      this.pauseTimer();
+      this.showBtnRestart = true;
+      this.isGameOverBlockBtn = true;
+      return;
+    }
 
     if (val === current) {
       this.addMsg('✅ ACERTOU !!!');
