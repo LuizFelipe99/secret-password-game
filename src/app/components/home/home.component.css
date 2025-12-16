@@ -1,0 +1,205 @@
+/* Reset básico e prevenção de overflow */
+* {
+  box-sizing: border-box;
+}
+
+:host {
+  display: block;
+}
+
+
+
+/* “Janela” do jogo */
+.game {
+  width: min(900px, 100%);
+  border-radius: 20px;
+  padding: 22px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow:
+    0 18px 60px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+  backdrop-filter: blur(14px);
+}
+
+/* Cabeçalho */
+.header {
+  margin-bottom: 16px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 26px;
+  letter-spacing: 0.5px;
+}
+
+.header p {
+  margin: 6px 0 0;
+  opacity: 0.85;
+}
+
+/* Topo com 2 cards */
+/* minmax(0, …) + min-width:0 evita o “estouro” do card da senha */
+.top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.top > * {
+  min-width: 0;
+}
+
+/* Cards */
+.secret-number,
+.result {
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  padding: 14px;
+}
+
+/* Card senha */
+.label {
+  font-size: 12px;
+  opacity: 0.8;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.password {
+  width: 100%;
+  max-width: 100%;
+  margin-top: 10px;
+  font-size: 28px;
+  text-align: center;
+  padding: 12px 14px;
+  border-radius: 14px;
+  outline: none;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(0, 0, 0, 0.25);
+  color: #eaf0ff;
+  letter-spacing: 6px;
+}
+
+/* Feedback */
+.result-title {
+  font-size: 12px;
+  opacity: 0.8;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.log {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 8px;
+  max-height: 180px;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scroll-behavior: smooth;
+  padding-right: 6px; /* dá um respiro do scroll */
+}
+
+/* Scroll bonito */
+.log::-webkit-scrollbar {
+  width: 8px;
+}
+
+.log::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 10px;
+}
+
+.log::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.log-item {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(124, 58, 237, 0.9);
+  box-shadow: 0 0 18px rgba(124, 58, 237, 0.75);
+  flex: 0 0 auto;
+}
+
+.text {
+  overflow-wrap: anywhere;
+}
+
+/* Área dos botões */
+.select-number {
+  margin-top: 14px;
+  border-radius: 16px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.title {
+  font-weight: 600;
+  margin-bottom: 12px;
+  opacity: 0.95;
+}
+
+/* Grid de números */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(9, minmax(0, 1fr));
+  gap: 10px;
+}
+
+/* Botões com “game feel” */
+.num-btn {
+  padding: 12px 0;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(0, 0, 0, 0.25);
+  color: #eaf0ff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.08s ease, background 0.2s ease, border-color 0.2s ease;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+}
+
+.num-btn:hover {
+  transform: translateY(-1px);
+  background: rgba(124, 58, 237, 0.18);
+  border-color: rgba(124, 58, 237, 0.55);
+}
+
+.num-btn:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+/* Responsivo */
+@media (max-width: 820px) {
+  .top {
+    grid-template-columns: 1fr;
+  }
+
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .password {
+    letter-spacing: 4px;
+    font-size: 26px;
+  }
+}

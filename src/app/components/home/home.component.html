@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="game">
+    <header class="header">
+      <h1>Descubra a senha</h1>
+      <p>Uma senha de <b>4 números</b>. Acerte na ordem!</p>
+    </header>
+
+    <section class="top">
+      <div class="secret-number">
+        <span class="label">Senha</span>
+        <input type="password" value="****" class="password" readonly />
+      </div>
+
+      <div class="result">
+        <div class="result-title">Feedback</div>
+
+        <ul class="log" #logRef>
+          <li *ngFor="let m of msg; let i = index" class="log-item">
+            <span class="dot"></span>
+            <span class="text">{{ m }}</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="select-number">
+      <div class="title">Escolha um número</div>
+
+      <div class="grid">
+        <button
+          class="num-btn"
+          *ngFor="let val of numbers"
+          (click)="verifyResult(val)"
+        >
+          {{ val }}
+        </button>
+      </div>
+    </section>
+  </div>
+</div>
