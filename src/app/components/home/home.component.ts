@@ -12,7 +12,7 @@ export class HomeComponent {
   secret: number[] = [];
   msg: string[] = [];
   result: (number | '*')[] = ['*', '*', '*', '*'];
-  timeLeft: number = 60; // 1 minuto em segundos
+  timeLeft: number = 6; // 1 minuto em segundos
   timer: any;
   showWinModal = false;
   isGameOverBlockBtn = false;
@@ -42,10 +42,15 @@ export class HomeComponent {
     }, 1000); // Atualiza a cada 1 segundo
   }
 
+  private pauseTimer() {
+    clearInterval(this.timer); // Limpa o timer para "pausar"
+  }
+
   private endGame() {
     this.isGameOverBlockBtn = true;
     this.showBtnRestart = true;
-     if (this.msg.indexOf('⏰ O tempo acabou!') === -1) { // Verifica se a mensagem já foi adicionada
+    this.pauseTimer(); // Pausa o timer quando o jogo acabar
+    if (this.msg.indexOf('⏰ O tempo acabou!') === -1) { // Verifica se a mensagem já foi adicionada
       this.addMsg('⏰ O tempo acabou!');
     }
     this.verifyEndGame();
@@ -103,6 +108,8 @@ export class HomeComponent {
     if (!this.result.includes('*')) {
       this.openWinModal();
       this.showBtnRestart = true;
+      this.isGameOverBlockBtn = true;
+      this.pauseTimer(); // Pausa o timer quando o jogo for ganho
     }
   }
 
@@ -118,3 +125,4 @@ export class HomeComponent {
     this.showBtnRestart = false;
   }
 }
+
