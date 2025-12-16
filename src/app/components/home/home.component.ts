@@ -45,7 +45,9 @@ export class HomeComponent {
   private endGame() {
     this.isGameOverBlockBtn = true;
     this.showBtnRestart = true;
-    this.addMsg('⏰ O tempo acabou!');
+     if (this.msg.indexOf('⏰ O tempo acabou!') === -1) { // Verifica se a mensagem já foi adicionada
+      this.addMsg('⏰ O tempo acabou!');
+    }
     this.verifyEndGame();
   }
 
