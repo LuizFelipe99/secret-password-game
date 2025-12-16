@@ -11,16 +11,27 @@ export class HomeComponent {
   numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   secret: number[] = [];
   msg: string[] = [];
-  result: number[] = [];
+
+  // agora result começa mascarado e vai revelando
+  result: (number | '*')[] = ['*', '*', '*', '*'];
+
+  get resultText(): string {
+  return this.result.join('');
+}
 
   @ViewChild('logRef') logRef!: ElementRef<HTMLElement>;
 
   ngOnInit(): void {
+    this.startGame();
+  }
+
+  private startGame() {
+    this.msg = [];
+    this.result = ['*', '*', '*', '*'];
     this.generateSecret();
   }
 
   private scrollToBottom() {
-    // espera o Angular renderizar o novo <li>
     setTimeout(() => {
       const el = this.logRef?.nativeElement;
       if (!el) return;
@@ -38,8 +49,14 @@ export class HomeComponent {
 
     if (val === current) {
       this.addMsg('✅ ACERTOU !!!');
-      this.result.push(val);
+
+      // posição que estamos acertando (0..3)
+      // antes do shift: se secret.length=4 -> pos=0; se 3 -> pos=1; etc.
+      const pos = 4 - this.secret.length;
+
+      this.result[pos] = val; // revela o número no lugar do '*'
       this.secret.shift();
+
       this.verifyEndGame();
       return;
     }
@@ -61,26 +78,20 @@ export class HomeComponent {
     this.secret = pool.slice(0, 4);
   }
 
-
   verifyEndGame() {
-    if (this.result.length == 4) {
+    // terminou quando não existir mais '*'
+    if (!this.result.includes('*')) {
       this.openWinModal();
-
     }
   }
 
-
-  //modal
+  // modal
   showWinModal = false;
   openWinModal() { this.showWinModal = true; }
   closeWinModal() { this.showWinModal = false; }
 
   restartGame() {
     this.closeWinModal();
-    this.msg = [];
-    this.result = [];
-    this.generateSecret();
+    this.startGame();
   }
-
-
 }
