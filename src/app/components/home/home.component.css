@@ -334,3 +334,30 @@
   transform: scale(0.98); /* Efeito de clique */
 }
 
+.points {
+  display: flex;
+  align-items: center;
+  font-size: 16px; /* Ajustando o tamanho da fonte para um estilo mais adequado */
+}
+
+.badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px; /* Aumentando o tamanho da bolinha */
+  height: 30px;
+  margin-left: 8px; /* Ajustando o espaçamento */
+  border-radius: 50%;
+  background-color: rgba(255, 223, 0, 0.6); /* Usando transparência no fundo */
+  border: 2px solid rgba(255, 223, 0, 0.8); /* Borda mais suave */
+  color: white; /* Cor do texto para contraste */
+  font-weight: bold; /* Deixando o texto mais visível */
+  transition: all 0.3s ease; /* Efeito suave na transição */
+}
+
+.badge:hover {
+  background-color: rgba(255, 223, 0, 0.8); /* Efeito no hover para aumentar a opacidade */
+  border: 2px solid rgba(255, 223, 0, 1);
+}
+
+

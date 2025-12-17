@@ -18,6 +18,7 @@ export class HomeComponent {
   isGameOverBlockBtn = false;
   showBtnRestart = false;
   attempts = 20;
+  points = 0;
 
   @ViewChild('logRef') logRef!: ElementRef<HTMLElement>;
 
@@ -94,15 +95,27 @@ export class HomeComponent {
       this.result[pos] = val;
       this.secret.shift();
       this.verifyEndGame();
+      this.points += 2;
       return;
     }
 
     if (val < current) {
       this.addMsg(`🔼 É MAIOR que: ${val}`);
+      this.removePoint(1);
       return;
     }
 
     this.addMsg(`🔽 É MENOR que: ${val}`);
+    this.removePoint(1);
+  }
+
+  removePoint(point: number){
+    let aux = (this.points - point);
+    console.log('passei', aux);
+    this.points = aux;
+    if(this.points <= 0 ){
+      this.points = 0;
+    }  
   }
 
   generateSecret() {
