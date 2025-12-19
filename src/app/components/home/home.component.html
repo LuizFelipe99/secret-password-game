@@ -5,11 +5,12 @@
       <p>Uma senha de <b>4 números</b>. Acerte na ordem!</p>
       <!-- Exibição do tempo -->
         <div class="timer">
-          <span>Tempo restante: {{ timeLeft }} segundos</span>
+          <span>Tempo restante: ⏱️ {{ timeLeft }} segundos</span>
         </div>
         Tentativas: {{attempts}}
         <div class="points">
-          Pontos: <div class="badge">{{points}}</div>
+          Pontos: <div class="badge">
+            {{points}}</div>
         </div>
     </header>
 
@@ -49,7 +50,10 @@
       Jogar de novo
     </div>
   </div>
+  
+  <!-- <app-ranking></app-ranking> -->
 </div>
+
 
 
 <!-- MODAL -->
@@ -67,3 +71,4 @@
     </div>
   </div>
 </div>
+
